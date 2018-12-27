@@ -23,6 +23,7 @@ var simulationTimer = undefined;
 var collided = false;
 
 function computeInitParams_() {
+  collided = false;
   var slabsDistanceWidth = SYSTEM_WIDTH - _(slabAWidths).sum() - _(slabBWidths).sum();
   allSlabsX_ = [0];
   allSlabsV_ = [STAB_A_INIT_SPEED];
