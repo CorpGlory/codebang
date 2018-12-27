@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - "8"
+script:
+  - cd vis
+  - npm install
+  - npm run build
+  - mv index.html ../
+  - mv -r dist ../
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token:
+    secure: dgqUL7RZ7jWkUSUGdCqtVBgKW/R0VlPRE7N9YYMaYKvgJq4ltbT7u+xvFhkeUAKKISQiqZF6np1u3qB4CjqSleZvGoB6eBW4b7ATflbraUsik3WvS0WmtyUgXTl0kzChdqA6k7+l316P2damTlx6J15gZjBlAArMEuJaighrjOHRiSgpVidwIclNlRLoP3aOPjBVdkkEnNqAkQmZF0dsU+iw5tNtdul3PMfF/fmCpsM+9QQRfOU9TO36awMuS+n2k39J9cvD+qNhnTXQ5DEO8INmKt4pAygqBaAxdTp49MwOWdtL/T8M2vfb00OHudq2naZveBtcL+n6v86bnstT0204fwGE7Zjm/1FOyeso+/RUEvsKSKVkT4fnjGkxpgIP/smhIcQ1coBgNqSeKwSNjGTza7SzitLaS1HctckMEtdvhPYPjJk77D9A8g944P6IqasJxIMs6w3bHodhe1oOcKJ61ZMiXBSnVKEgLtVbBjBnQX0Yd5UrpL8ud8fR7onrxFWX/9YWbc/Exh8aMhF9XenlMPHTob8+cHCq0xo/IDe32AeWiF6RQjym6Y22zX+narfp6YxRyVUXvg1AeXyFR4LRj/hkcKxglvcXLTfn7lX0c+q6S8zhwG36gL282mJcE7w22Sqr830XolBX8OMp6X9NuG6tFnU2Htmb4yo0VRc=
+  keep-history: true
+  on:
+    branch: master
