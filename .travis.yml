@@ -2,19 +2,19 @@ language: node_js
 node_js:
 - '8'
 script:
-  - cd vis
-  - npm install
-  - npm run build
-  - find .. | grep -vE "\.\.\/(vis)|(\.git)" | grep -vE "\.\.$" | xargs rm -rf
-  - mv index.html ..
-  - mv dist ..
-  - cd ..
-  - rm -rf vis
+- cd vis
+- npm install
+- npm run build
+- find .. | grep -vE "\.\.\/(vis)|(\.git)" | grep -vE "\.\.$" | xargs rm -rf
+- mv index.html ..
+- mv dist ..
+- cd ..
+- rm -rf vis
 deploy:
   provider: pages
   skip-cleanup: true
   github-token:
-    secure: C2ehjTgcqd416oLRvsjGdih9dBGQn+ov69+EFrdhQJ58hcJrTcNgXcqeUBMpeBQ+V6sWTJadY6qnQDKQeTCvDSUDbrUs728bTyKdwwXXz47T+Jge3zqPRUx26fFBBIoDBj+vk8C+fT0AHY+0zurHaENQzGk+kKMJDEbwQvf+7e+B6+4tx420N5hh7SNnLB3F/FloyUfYhx4xkjKdrGN11Ym9qg6eIme9eZGMDyR/o8iod0IoGAqtvaX6oOaRzDPdjWCl1a78pbN88Iw0IuhFMq8RBjMq0hQzYFDupT+Pop9iSAQjcp9U+tZ20gYrAezDW6ZAeSeJZejE/RUYBqThutQmaA1NwNaBnkrcDf7tO5v6mrQcpmSTsyN1a4qFjKnoC3y8r6hKQ4NexjiGctZO0A6OajpmNTWNRUQ8MilUdcLkb0gr1ndwR5/NgXO2HAJHlviU5f8wENhCNWuu3cAc6FACWlzhns7S7H+7jZMARvoPtLtbLpY4KWQfGRmu1MdI0oNWjYUUanpX/oRCbOFiwBggONX55gsoUb7g5GMgtbwIWONkShqWCvTRizF8CH+jCnfO95IzQvjawW8v+Js5E2xDymKORu4aLtGtYrbZrtELVJRen8H1JnX1zq4pHwjgcfesnHU0cl3yV7DptUygIhjlkHd4QTtkJVM2wivk+j4=
+    secure: ZryDQktB9LeOUD0o/KuDrc62E0x2+GI6jP0huHpbua2Qy0jpW4GGuaJzZwdPLatPqxwP6dBYLFhyBtLFGwGwEDQUXjjspkGxHLdX5FFTTzWASVJKyB8ZSAGOciGoPUW3J77rSkhd5P/yb2SRFqxSqFvIohJ/xpwXqZjK9xizd0ENwsf1gD+Pvw2YXQZHVF/akTJaItLhVwAbGy6tnCHsUaAVpzd9mAobqQDrZV9PORRF9IhXHskaENQ586+1fMTs5iWy0dMjX33j850nDrspDOIuSR/lVI0zzNYvGSdFlOK0RXIuejTmHOMhiQ5eU3gEQabJQ/QEPl12uml26SjzSANfB+FJeYZTrqAGb4I/JLEkWPtZ++cT0L6vzzf+gH/WPd6uC7c6cr+4NW0ZGB5pvY8nUiYXxRkP0NJ4cXF4giD5evCE1TFNZPS0vDn4IUcnvJ/bBQTzcUvUqGWzT4uBVW5zPFqmEVwrfU/1H9XOodWUoqjl9a3LYePWleGQaGZOaUUkTKXgmDPfR0/X58QMntSkQf/d45F//u016M+rUztrVxhjwS/JWsPNxTCWWWIFOh7UsMXEx25j4ctnCqlucyUS+24+DOPdSHfrRbL9NqKn8w6FrhyiRhCsX6PAnm3sPcLElvX6UQt6YRAo+Sbb9Rj+uJFdPiHkB6RPjzNz5pk=
   keep-history: true
   on:
     branch: master
