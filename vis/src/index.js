@@ -6,15 +6,23 @@ $(document).ready(function() {
 
   var simulationRunning = false;
 
+  function updateActionState() {
+    if(simulationRunning) {
+      $('#actionButton').val('run simulation');
+      simulationRunning = false;
+      stopSimulation();
+    } else {
+      simulationRunning = true;
+      $('#actionButton').val('stop simulation');
+      runSimulation();
+    }
+  }
+
+  $('#actionButton').click(updateActionState);
+
   $(document).keypress(function(k) {
-    if(k.key === ' ') {
-      if(simulationRunning) {
-        simulationRunning = false;
-        stopSimulation();
-      } else {
-        simulationRunning = true;
-        runSimulation();
-      }
+    if(k.key === ' ') { 
+      updateActionState();
     }
   });
 

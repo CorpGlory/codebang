@@ -74,8 +74,20 @@ var option = {
 
 
 function setSystemBar(i, width, color) {
-  option.series[i].data = [width];
-  option.series[i].color = color;
+  if(width !== undefined) {
+    option.series[i].data = [width];
+  }
+  if(color === undefined) {
+    return;
+  }
+  if(color === null) {
+    delete option.series[i].tooltip;
+    option.series[i].color = 'none';
+  } else {
+    option.series[i].color = color;
+    option.series[i].tooltip = {}
+  }
+
 }
 
 function getStabsDistance() {
@@ -83,11 +95,11 @@ function getStabsDistance() {
 }
 
 function updateSystemBars() {
-  setSystemBar(0, allSlabsX_[0], 'none');
+  setSystemBar(0, allSlabsX_[0], null);
   for(var i = 1; i < allSlabsX_.length; i++) {
     setSystemBar(i, allSlabsX_[i] - allSlabsX_[i - 1], '#ccc');
   }
-  option.series[slabAWidths.length + 1].color = 'none';
+  setSystemBar(slabAWidths.length + 1, undefined, null);
   if(getStabsDistance() <= 0) { 
     collided = true;
   }
