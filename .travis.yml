@@ -2,8 +2,11 @@ deploy:
   provider: pages
   skip-cleanup: true
   script:
+    - cd vis
     - npm install
     - npm run build
+    - mv index.html ../
+    - mv -r dist ../
   github-token: $GITHUB_TOKEN
   keep-history: true
   on:
