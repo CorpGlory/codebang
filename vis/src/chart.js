@@ -18,6 +18,8 @@ var slabBWidths = [0.2, 0.2];
 var allSlabsX_ = [];
 var allSlabsV_ = [];
 
+var simulationTimer = undefined;
+
 function computeInitParams_() {
   var slabsDistanceWidth = SYSTEM_WIDTH - _(slabAWidths).sum() - _(slabBWidths).sum();
   allSlabsX_ = [0];
@@ -89,10 +91,18 @@ export function tick() {
     allSlabsX_[i] = allSlabsX_[i] + TICK_LENGTH * allSlabsV_[i];
   }
   updateSystemBars();
-  console.log('tick');
+  
 }
 
+export function runSimulation() {
+  console.log('Simulation started!');
+  computeInitParams_();
+  simulationTimer = setInterval(tick, Math.round(TICK_LENGTH * 1000));
+}
 
+export function stopSimulation() {
+  clearInterval(simulationTimer);
+}
 
 export function setupChart(elem) {
   
