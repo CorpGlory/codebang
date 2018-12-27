@@ -12,13 +12,15 @@ var STAB_A_INIT_SPEED = 0.2;
 var STAB_B_INIT_SPEED = -0.3;
 
 
-var slabAWidths = [0.1, 0.2];
-var slabBWidths = [0.2, 0.2];
+var slabAWidths = [0.05, 0.1, 0.075, 0.05];
+var slabBWidths = [0.1, 0.2, 0.015, 0.04];
 
 var allSlabsX_ = [];
 var allSlabsV_ = [];
 
 var simulationTimer = undefined;
+
+var collided = false;
 
 function computeInitParams_() {
   var slabsDistanceWidth = SYSTEM_WIDTH - _(slabAWidths).sum() - _(slabBWidths).sum();
@@ -26,16 +28,16 @@ function computeInitParams_() {
   allSlabsV_ = [STAB_A_INIT_SPEED];
   let sum = 0;
 
-  for(let i = 0; i < slabAWidths.length; i++) { 
-    sum += slabAWidths[i]; 
+  for(let i = 0; i < slabAWidths.length; i++) {
+    sum += slabAWidths[i];
     allSlabsX_.push(sum);
     allSlabsV_.push(STAB_A_INIT_SPEED);
   }
   sum += slabsDistanceWidth;
   allSlabsX_.push(sum);
   allSlabsV_.push(STAB_B_INIT_SPEED);
-  for(let i = 0; i < slabBWidths.length; i++) { 
-    sum += slabBWidths[i]; 
+  for(let i = 0; i < slabBWidths.length; i++) {
+    sum += slabBWidths[i];
     allSlabsX_.push(sum);
     allSlabsV_.push(STAB_B_INIT_SPEED);
   }
@@ -45,27 +47,27 @@ computeInitParams_();
 
 var option = {
   title: {
-    text: 'Numerical method two stabs collision',
+    text: 'Numerical method: two stabs collision',
   },
   color: ['#3398DB'],
   animation: false,
   grid: {
-      left: '1%',
-      right: '1%',
-      bottom: '40px',
+    left: '1%',
+    right: '1%',
+    bottom: '40px',
   },
   xAxis: {
-      type: 'value',
-      boundaryGap: [0, 1],
-      min: 0,
-      max: SYSTEM_WIDTH,
-      interval: 0.1
+    type: 'value',
+    boundaryGap: [0, 1],
+    min: 0,
+    max: SYSTEM_WIDTH,
+    interval: 0.1
   },
   yAxis: {
-      type:'category',
-      data: ['1d'],
-      show: false
-  }, 
+    type:'category',
+    data: ['1d'],
+    show: false
+  },
   series: allSlabsX_.map(() => ({ type: 'bar', stack: '1d', data: [0] }))
 };
 
@@ -75,23 +77,40 @@ function setSystemBar(i, width, color) {
   option.series[i].color = color;
 }
 
+function getStabsDistance() {
+  return option.series[slabAWidths.length + 1].data[0];
+}
+
 function updateSystemBars() {
   setSystemBar(0, allSlabsX_[0], 'none');
   for(var i = 1; i < allSlabsX_.length; i++) {
     setSystemBar(i, allSlabsX_[i] - allSlabsX_[i - 1], '#ccc');
   }
   option.series[slabAWidths.length + 1].color = 'none';
+  if(getStabsDistance() <= 0) { 
+    collided = true;
+  }
 
   mainChart.setOption({ series: option.series });
 }
 
 
 export function tick() {
+  if(collided) {
+    return;
+  }
+
   for(var i = 0; i < allSlabsX_.length; i++) {
     allSlabsX_[i] = allSlabsX_[i] + TICK_LENGTH * allSlabsV_[i];
   }
+
   updateSystemBars();
-  
+
+  if(getStabsDistance() < 0) {
+    // TODO: process better this event
+    setSystemBar(slabAWidths.length + 1, 0, 'none');
+  }
+
 }
 
 export function runSimulation() {
@@ -105,7 +124,7 @@ export function stopSimulation() {
 }
 
 export function setupChart(elem) {
-  
+
   // initialize echarts instance with prepared DOM
   mainChart = echarts.init(elem);
 
