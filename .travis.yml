@@ -5,10 +5,11 @@ script:
   - cd vis
   - npm install
   - npm run build
+  - find .. | grep -v "../vis" | grep -v "../.git" | xargs rm -rf
   - mv index.html ..
   - mv dist ..
   - cd ..
-  - find . | grep -v "dist" | grep -v "index.html" | xargs rm -rf
+  - rm -rf vis
 deploy:
   provider: pages
   skip-cleanup: true
