@@ -5,7 +5,7 @@ script:
   - cd vis
   - npm install
   - npm run build
-  - find .. | grep -v "../vis" | grep -v "../.git" | xargs rm -rf
+  - find .. | grep -vE "\.\.\/(vis)|(\.git)" | grep -vE "\.\.$" | xargs rm -rf
   - mv index.html ..
   - mv dist ..
   - cd ..
