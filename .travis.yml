@@ -8,7 +8,7 @@ script:
   - mv index.html ..
   - mv dist ..
   - cd ..
-  - find . | grep -v "dist" | grep -v "index.html" | xargs rm
+  - find . | grep -v "dist" | grep -v "index.html" | xargs rm -rf
 deploy:
   provider: pages
   skip-cleanup: true
