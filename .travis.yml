@@ -1,5 +1,7 @@
 language: node_js
-script: 
+node_js:
+  - "8"
+script:
   - cd vis
   - npm install
   - npm run build
