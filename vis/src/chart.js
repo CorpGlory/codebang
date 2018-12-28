@@ -57,6 +57,9 @@ var option = {
     right: '1%',
     bottom: '40px',
   },
+  tooltip: {
+    show: true
+  },
   xAxis: {
     type: 'value',
     boundaryGap: [0, 1],
